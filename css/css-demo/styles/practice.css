@@ -11,3 +11,19 @@ section .job{
 ul.small-text{
   font-size: .8em;
 }
+
+#red{
+  color: red;
+}
+
+.blue {
+  color: blue;
+}
+
+section:hover{
+  color: green;
+}
+
+ul > li {
+  color: gray;
+}
