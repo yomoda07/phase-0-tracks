@@ -1,0 +1,13 @@
+#contact-info p{
+  font-size: .8em;
+}
+
+section .job{
+ background-color: #e9e5dc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px 0;
+} 
+ul.small-text{
+  font-size: .8em;
+}
