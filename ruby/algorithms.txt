@@ -1,0 +1,44 @@
+# 4.2 Algorithm
+
+## Elevator Algorithm
+input the number of destination floor.
+if current floor is less than destination floor
+  - get onto elevator if the elevator is going up.
+ 
+else 
+  - get onto elevator if the elevator is going down.
+
+if there are people inside the elevator
+  - ask them to press the button of destination floor.
+
+else
+  - Move forward toward elevator until a wall is reached.
+  - Move left along with wall until elevator buttons are reached.
+  - Press the button of the destination floor.
+
+Every time the elevator stops:
+  - Check the floor
+  - if the floor is the destination floor
+      - get off the elevator
+     
+  - else
+      - do nothing
+
+
+
+## Adjusting a shower temperature
+
+Turn on the water and hot water
+Until shower temperature is just right:
+  - wait 5 seconds
+  - if shower temperature is too hot
+    - turn on the hot water more
+  - else if shower temperature is not hot enough
+    - turn on the water more
+  - else
+    - good to go
+
+
+
+
+
