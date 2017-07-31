@@ -23,7 +23,7 @@ end
 def fake_name(name)
   fake_name = []
   fake_name = swap_name(name)
-  vowels = "aiueo"
+  vowels = "aeiou"
   fake_name.each_with_index do |value, x|
     value.length.times do |i|
       if vowels.include?(value[i])
