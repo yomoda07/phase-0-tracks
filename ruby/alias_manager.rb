@@ -22,17 +22,18 @@ end
 
 def fake_name(name)
   fake_name = []
-  fake_name = swap_name(name)
+  name = swap_name(name)
   vowels = "aeiou"
-  fake_name.each_with_index do |value, x|
-    value.length.times do |i|
-      if vowels.include?(value[i])
-          fake_name[x][i] = next_vowel(value[i], vowels)
+  name.each do |value|
+    place_holder = []
+    value.chars.each do |letter|
+      if vowels.include?(letter)
+          place_holder << next_vowel(letter, vowels)
       else
-        fake_name[x][i] = next_char_except_vowels(fake_name[x][i], vowels)
+        place_holder << next_char_except_vowels(letter, vowels)
       end
     end
-    fake_name[x].capitalize!
+    fake_name << place_holder.join("").capitalize!
   end
   fake_name.join(" ")
 end
