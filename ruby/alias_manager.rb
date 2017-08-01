@@ -43,15 +43,16 @@ def create_fake_name
   loop do
     puts "Please input a name. (exit by typing 'quit')"
     input = gets.chomp
-    next if input.strip.empty?
-
-    if input == "quit"
+    if input.strip.empty?
+      next
+    elsif input == "quit"
       created_names.each do |name,fake_name|
         puts "#{fake_name} is actually #{name}"
       end
       break
+    else
+      puts created_names[input] = fake_name(input)
     end
-    puts created_names[input] = fake_name(input)
   end
 end
 
