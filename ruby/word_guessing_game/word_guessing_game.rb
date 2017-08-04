@@ -1,29 +1,35 @@
 =begin
 Pseudocode for a word guessing game-------------------
 - define a class named Word_guessing_game
-- create initialize method that take the input word as the argument
-  - declare 3 instance variables,
-      guess_count for storing how many times user guessed
-      game_finished for storing boolean to check if game finished.
-      limit assigned maximum times user can guess
-      current_state for storing feedback
+- create initialize method
+  INPUT: secret word
+  STEP: declare
+      guess counter
+      a variable to check if game finished and set FALSE to it.
+      guess limit
+      current state for feedback
+  OUTPUT: Nothing
 - Create method to check if user input is equal to answer.
-  - IF user input is equal to the secret word
-    - set true to game_finished
+  INPUT: secret word, input word
+  - IF input word is equal to the secret word
+    - set TRUE to the variable for checking if game finished
     - RETURN congratulatory message
   - ELSIF remaining count is equal to 0
-    - Set true to game_finised
+    - Set TRUE to the variable for checking if game finished
     - return taunting message
   - ELSE
     - call showing feedback method
+    END
 - Create a method to show feedback
-- Break the input word into each letter
-- Iterate each letter and compare with the letter in the secret word
-  - IF those letters are same
-    - assign it to corresponding place in current state array
-  - combine array into string and return it
+  INPUT: secret word, input word
+  - Split the input word into each letter and set it to array.
+  - extract each letter in the array and compare with the letter in the secret word
+    - IF those letters are same
+      - assign it to corresponding place in current state array
+    - combine letters in array into string
+  OUTPUT: String
 - Create a method to calculate remaining
-  - return limit - guess_count
+  - return limit - guess ount
 
 - Ask user1 to input secret word
 - Create an instance method takes input secret word.
@@ -72,7 +78,7 @@ class Word_guessing_game
   end
 end
 
-
+# Driver code
 puts "Pleas e input secret word."
 ARGV.clear; secret_word = gets.chomp
 50.times do |i|
