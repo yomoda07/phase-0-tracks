@@ -1,4 +1,4 @@
-require_relative 'word_guessing_game.rb'
+require_relative 'word_guessing_game'
 
 describe Word_guessing_game do
   let(:game) {Word_guessing_game.new("word")}
