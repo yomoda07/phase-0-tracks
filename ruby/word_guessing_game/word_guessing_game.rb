@@ -24,7 +24,7 @@ Pseudocode for a word guessing game-------------------
   OUTPUT: String
 - Create a method to show feedback
   INPUT: secret word, input word
-  STEP: 
+  STEP:
   - Split the input word into each letter and set it to array.
   - extract each letter in the array and compare with the letter in the secret word
     - IF those letters are same
@@ -36,6 +36,8 @@ Pseudocode for a word guessing game-------------------
   STEP:
   - caluculate remaining times
   OUTPUT: Integer
+  
+#Drive code
 - Ask user1 to input secret word
 - Create an instance method takes input secret word.
 - Create WHILE loop to execute the code until either of users win
