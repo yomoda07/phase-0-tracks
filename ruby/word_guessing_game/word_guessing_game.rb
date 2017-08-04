@@ -11,7 +11,8 @@ Pseudocode for a word guessing game-------------------
   OUTPUT: Nothing
 - Create method to check if user input is equal to answer.
   INPUT: secret word, input word
-  - IF input word is equal to the secret word
+  STEP:
+  IF input word is equal to the secret word
     - set TRUE to the variable for checking if game finished
     - RETURN congratulatory message
   - ELSIF remaining count is equal to 0
@@ -22,6 +23,7 @@ Pseudocode for a word guessing game-------------------
     END
 - Create a method to show feedback
   INPUT: secret word, input word
+  STEP:
   - Split the input word into each letter and set it to array.
   - extract each letter in the array and compare with the letter in the secret word
     - IF those letters are same
@@ -29,6 +31,7 @@ Pseudocode for a word guessing game-------------------
     - combine letters in array into string
   OUTPUT: String
 - Create a method to calculate remaining
+  STEP:
   - return limit - guess ount
 
 - Ask user1 to input secret word
