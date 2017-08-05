@@ -41,7 +41,7 @@ Pseudocode for a word guessing game-------------------
   STEP:
   - caluculate remaining times
   OUTPUT: Integer
-  
+
 #Drive code
 =======
   STEP:
@@ -95,18 +95,17 @@ class Word_guessing_game
   end
 end
 
-# Driver code
-puts "Pleas e input secret word."
-ARGV.clear; secret_word = gets.chomp
-50.times do |i|
-   puts "======================"
-   puts "Game start!" if i == 48
-end
-game = Word_guessing_game.new(secret_word)
-loop do
-  puts "Guess the secret #{secret_word.length}-letter word!"
-  ARGV.clear; input_word = gets.chomp
-  puts game.check_guess(secret_word, input_word)
-  break if game.game_finised
-  puts "The remaining #{game.calculate_remaining} times"
-end
+# # Driver code
+# puts "Pleas e input secret word."
+# secret_word = gets.chomp
+# 50.times do |i|
+#    puts "======================"
+#    puts "Game start!" if i == 48
+# end
+# game = Word_guessing_game.new(secret_word)
+# until game.game_finised do
+#   puts "Guess the secret #{secret_word.length}-letter word!"
+#   input_word = gets.chomp
+#   puts game.check_guess(secret_word, input_word)
+#   puts "The remaining #{game.calculate_remaining} times" if !game.game_finised
+# end
