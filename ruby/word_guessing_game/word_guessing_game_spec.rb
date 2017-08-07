@@ -2,21 +2,17 @@ require_relative 'word_guessing_game'
 
 describe Word_guessing_game do
   let(:game) {Word_guessing_game.new("word")}
-  it "Create instance variables" do
-    expect(game.guess_count).to eq 0
+  it "create instance variables" do
     expect(game.game_finised).to eq false
-    expect(game.limit).to eq 4
+    expect(game.limit).to eq 9
+    expect(game.current_state).to eq ["_", "_", "_", "_"]
   end
 
-  it "Check guess and show the result" do
-    expect(game.check_guess("word", "word")).to eq "Bingo! You won!"
+  it "check guess and show the feedback" do
+    expect(game.check_guess("w")).to eq "w _ _ _"
   end
 
-  it "Return feedback" do
-    expect(game.show_feedback("word","bird")).to eq "_ _ r d"
-  end
-
-  it "Calculate the remaining times" do
-    expect(game.calculate_remaining).to eq 4
+  it "calculate the remaining times" do
+    expect(game.calculate_remaining).to eq "The remaining 9 times\n\n"
   end
 end

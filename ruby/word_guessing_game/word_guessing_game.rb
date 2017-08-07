@@ -12,11 +12,7 @@ Pseudocode for a word guessing game-------------------
 - Create method to check if user input is equal to answer.
   INPUT: secret word, input word
   STEP:
-<<<<<<< HEAD
-  - IF input word is equal to the secret word
-=======
   IF input word is equal to the secret word
->>>>>>> a43c2b4fbf2454586d241d181bef6a0c306200bb
     - set TRUE to the variable for checking if game finished
     - RETURN congratulatory message
   - ELSIF remaining count is equal to 0
@@ -36,76 +32,56 @@ Pseudocode for a word guessing game-------------------
     - combine letters in array into string
   OUTPUT: String
 - Create a method to calculate remaining
-<<<<<<< HEAD
   INPUT: limit times, guess count
   STEP:
   - caluculate remaining times
   OUTPUT: Integer
-
-#Drive code
-=======
-  STEP:
-  - return limit - guess ount
-
->>>>>>> a43c2b4fbf2454586d241d181bef6a0c306200bb
-- Ask user1 to input secret word
-- Create an instance method takes input secret word.
-- Create WHILE loop to execute the code until either of users win
-  - Ask user2 to input guess
-  - check the guess
-  - show the current state
 -------------------------------------------------------
 =end
 
-
 class Word_guessing_game
-  attr_reader :guess_count, :limit, :game_finised
+  attr_reader :guess_count, :limit, :game_finised, :current_state, :remaining
   def initialize(secret_word)
-    @guess_count = 0
+    @secret_word = secret_word
+    @guesses = []
     @game_finised = false
-    @words_count = secret_word.split(" ").length
-    @limit = secret_word.length
+    @words_count = secret_word.length
+    secret_word.length < 10 ? @limit = secret_word.length + 5 : @limit = secret_word.length
     @current_state = []
     secret_word.length.times { @current_state << "_" }
   end
 
-  def check_guess(secret_word, input_word)
-    @guess_count += 1
-    if secret_word == input_word
-      @game_finised = true
-      "Bingo! You won!"
-    elsif calculate_remaining == 0
-      @game_finised = true
-      "You lost..."
-    else
-      show_feedback(secret_word, input_word)
+  def check_guess(input_letter)
+    @guesses << input_letter unless @guesses.include?(input_letter)
+    @secret_word.chars.each_with_index do |letter, i|
+      @current_state[i] = letter if input_letter == letter
     end
-  end
-
-  def show_feedback(secret_word, input_word)
-    input_word.chars.each_with_index do |letter, i|
-      @current_state[i] = letter if letter == secret_word.chars[i]
-    end
-    @game_finised = true if input_word == secret_word || calculate_remaining == 0
     @current_state.join(" ")
   end
 
   def calculate_remaining
-    @limit - @guess_count
+    remaining = @limit - @guesses.length
+    if remaining == 0
+      @game_finised = true
+      "You lost..."
+    else
+      "The remaining #{remaining} times\n\n"
+    end
   end
 end
 
 # # Driver code
-# puts "Pleas e input secret word."
+# puts "Please input secret word."
 # secret_word = gets.chomp
-# 50.times do |i|
-#    puts "======================"
-#    puts "Game start!" if i == 48
-# end
 # game = Word_guessing_game.new(secret_word)
+#
 # until game.game_finised do
-#   puts "Guess the secret #{secret_word.length}-letter word!"
+#   puts "Guess the secret #{secret_word.length}-letter word!(input a letter)"
 #   input_word = gets.chomp
-#   puts game.check_guess(secret_word, input_word)
-#   puts "The remaining #{game.calculate_remaining} times" if !game.game_finised
+#   puts game.check_guess(input_word)
+#   if !game.current_state.include?("_")
+#     puts "Bingo! You won!"
+#     break
+#   end
+#   puts game.calculate_remaining
 # end
