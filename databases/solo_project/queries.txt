@@ -1,0 +1,66 @@
+-- Release 2
+-- 1. COMMAND
+SELECT * FROM customers;
+-- 1. OUTPUT
+1|William Barker|7778881234|1|true
+2|Carol Bell|6665554343|3|false
+3|Terry James|7899871234|2|false
+4|Melissa Hayes|6667340098|1|true
+
+-- 2. COMMAND
+UPDATE customers SET ordered_pizza_id =
+3 WHERE name = "William Barker";
+
+-- 3. COMMAND
+SELECT * FROM customers, pizzas WHERE cu
+stomers.ordered_pizza_id = pizzas.id;
+-- 3.OUTPUT
+1|William Barker|7778881234|3|true|3|Pesto Chick
+en|14
+2|Carol Bell|6665554343|3|false|3|Pesto Chicken|
+14
+3|Terry James|7899871234|2|false|2|Pepperoni|12.
+5
+4|Melissa Hayes|6667340098|1|true|1|Hawaiian|12
+
+-- 4. COMMAND
+SELECT customers.name, pizzas.name, pizzas.price FROM customers JOIN pizzas
+ON customers.ordered_pizza_id = pizzas.id;
+-- 4.OUTPUT
+William Barker|Pesto Chicken|14
+Carol Bell|Pesto Chicken|14
+Terry James|Pepperoni|12.5
+Melissa Hayes|Hawaiian|12
+
+-- 5. COMMAND
+DELETE FROM customers WHERE name="Terry James";
+
+
+-- Release 3
+-- 1. COMMAND
+SELECT customers.phone_number, pizzas.name FROM customers INNER JOIN pizzas
+ON customers.ordered_pizza_id = pizzas.id;
+-- 1.OUTPUT
+7778881234|Pesto Chicken
+6665554343|Pesto Chicken
+6667340098|Hawaiian
+
+-- 2. COMMAND
+SELECT customers.name, pizzas.price FROM customers LEFT OUTER JOIN pizzas ON customers.ordered_pizza_id = pizzas.id;
+-- 2.OUTPUT
+William Barker|14
+Carol Bell|14
+Melissa Hayes|12
+
+-- 3. COMMAND
+SELECT * FROM customers CROSS JOIN pizzas;
+-- 3. OUTPUT
+1|William Barker|7778881234|3|true|1|Hawaiian|12
+1|William Barker|7778881234|3|true|2|Pepperoni|12.5
+1|William Barker|7778881234|3|true|3|Pesto Chicken|14
+2|Carol Bell|6665554343|3|false|1|Hawaiian|12
+2|Carol Bell|6665554343|3|false|2|Pepperoni|12.5
+2|Carol Bell|6665554343|3|false|3|Pesto Chicken|14
+4|Melissa Hayes|6667340098|1|true|1|Hawaiian|12
+4|Melissa Hayes|6667340098|1|true|2|Pepperoni|12.5
+4|Melissa Hayes|6667340098|1|true|3|Pesto Chicken|14
