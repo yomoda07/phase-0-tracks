@@ -6,7 +6,7 @@ require "date"
 db = SQLite3::Database.new("smoker.db")
 db.results_as_hash = true;
 
-# Create tables for cigarrets and smokers
+# Create tables for cigarrets and users
 create_cigarettes_table = <<-SQL
   create table if not exists cigarettes(
     id integer primary key,
@@ -15,20 +15,31 @@ create_cigarettes_table = <<-SQL
   )
 SQL
 
-create_smokers_table = <<-SQL
-  create table if not exists smokers(
+create_users_table = <<-SQL
+  create table if not exists users(
     id integer primary key,
     name varchar(255),
     cigarette_id int,
-    daily_cig_cons int,
-    total_cig_cons int,
+    ave_cig_cons int,
     updated_at varchar(255),
+    created_at varchar(255),
     foreign key(cigarette_id) references cigarettes(id)
   )
 SQL
 
+create_smoking_logs_table = <<-SQL
+  create table if not exists smoking_logs(
+    id integer primary key,
+    user_id int,
+    smoking_record int,
+    recorded_at int,
+    foreign key(user_id) references users(id)
+  )
+SQL
+
 db.execute(create_cigarettes_table)
-db.execute(create_smokers_table)
+db.execute(create_users_table)
+db.execute(create_smoking_logs_table)
 
 
 # Populate each table
@@ -36,32 +47,29 @@ def add_cigarette(db, name, price)
   db.execute("insert into cigarettes(name, price) values (?, ?)", [name, price])
 end
 
-def add_smoker(db, user)
+def add_user(db, new_user)
   db.execute("insert into
-      smokers(
+      users(
         name,
         cigarette_id,
-        daily_cig_cons,
-        total_cig_cons,
-        updated_at
+        ave_cig_cons,
+        updated_at,
+        created_at
         )
       values (?, ?, ?, ?, ?)",
       [
-        user['name'],
-        user['cigarette_id'],
-        user['daily_cig_cons'],
-        user['total_cig_cons'],
-        user['updated_at']
+        new_user['name'],
+        new_user['cigarette_id'],
+        new_user['ave_cig_cons'],
+        new_user['updated_at'],
+        new_user['created_at']
       ])
 end
 
-def current_date
-  date = []
-  date[0] = Time.now.year
-  date[1] = Time.now.mon
-  date[2] = Time.now.day
-  date
-end
+# def add_logs(db, record, smoker)
+#   db.execute("insert into cigarettes(name, price) values (?, ?)", [name, price])
+# end
+
 
 cigarettes = {
   "Marlboro" => 10.2,
@@ -83,9 +91,9 @@ end
   user = {}
   user['name'] = Faker::Name.name
   user['cigarette_id'] = rand(1..10)
-  user['daily_cig_cons'] = rand(1..20)
-  user['total_cig_cons'] = rand(1..500)
-  user['updated_at'] = current_date.join("-")
+  user['ave_cig_cons'] = rand(1..30)
+  user['updated_at'] = Date.today.to_s
+  user['created_at'] = Date.today.to_s
 
-  add_smoker(db, user)
+  add_user(db, user)
 end
