@@ -66,10 +66,26 @@ def add_user(db, new_user)
       ])
 end
 
-# def add_logs(db, record, smoker)
-#   db.execute("insert into cigarettes(name, price) values (?, ?)", [name, price])
-# end
+def create_users
+  5000.times do
+    user = {}
+    user['name'] = Faker::Name.name
+    user['cigarette_id'] = rand(1..10)
+    user['ave_cig_cons'] = rand(1..30)
+    user['updated_at'] = Date.today.to_s
+    user['created_at'] = Date.today.to_s
 
+    add_user(db, user)
+  end
+end
+
+def create_cigarettes(cigarettes)
+  cigarettes.each do |name, price|
+    add_cigarette(db, name, price)
+  end
+end
+
+end
 
 cigarettes = {
   "Marlboro" => 10.2,
@@ -83,17 +99,6 @@ cigarettes = {
   "Kool" => 8.3,
   "Benson & Hedges" => 11.4
 }
-cigarettes.each do |name, price|
-  add_cigarette(db, name, price)
-end
 
-5000.times do
-  user = {}
-  user['name'] = Faker::Name.name
-  user['cigarette_id'] = rand(1..10)
-  user['ave_cig_cons'] = rand(1..30)
-  user['updated_at'] = Date.today.to_s
-  user['created_at'] = Date.today.to_s
-
-  add_user(db, user)
-end
+create_users
+create_cigarettes(cigarettes)
