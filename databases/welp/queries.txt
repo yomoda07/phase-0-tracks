@@ -1,0 +1,15 @@
+--COMMAND
+SELECT * FROM reviews JOIN users ON reviews.user_id = users.id JOIN business
+es ON reviews.business_id = businesses.id;
+
+1|5|Great place to have wedding!|1|2|2|Mandy|Kaling|1|Grundy Hollow Wedding Chapel
+2|4|good instructor|3|2|2|Mandy|Kaling|3|Lotus Yoga
+
+--COMMAND
+SELECT users.first_name, users.last_name, businesses.name, stars, comment FROM reviews JOIN users ON reviews.user_id = users.id JOIN businesses ON reviews.business_id = businesses.id;
+
+Mandy|Kaling|Grundy Hollow Wedding Chapel|5|Great place to have wedding!
+Mandy|Kaling|Lotus Yoga|4|good instructor
+
+--COMMAND
+SELECT users.first_name, users.last_name, businesses.name, stars, comment FROM reviews JOIN users ON reviews.user_id = users.id JOIN businesses ON reviews.business_id = businesses.id where businesses.name = "Grundy Hollow Wedding Chapel";
