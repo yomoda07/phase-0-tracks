@@ -15,6 +15,6 @@ class Cigarette
   end
 
   def get_cigarette_price(cigarette_id)
-    price = @db.execute("select price from cigarettes where id=?", [cigarette_id])[0]['price']
+    @db.execute("select price from cigarettes where id=?", [cigarette_id])[0]['price']
   end
 end

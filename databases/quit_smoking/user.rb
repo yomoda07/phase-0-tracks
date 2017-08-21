@@ -31,7 +31,7 @@ class User
 
   def sign_in(id, name)
     user = @db.execute("select * from users where id=?", [id])
-    if user[0]['name'] == name
+    if !user.empty? && user[0]['name'] == name
       @id = id
       get_user_info
       return true

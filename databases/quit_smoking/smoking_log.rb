@@ -12,6 +12,7 @@ class QuitSmoking
     @db.results_as_hash = true
     @user = User.new
     @cigarette = Cigarette.new
+    @days = 0
   end
 
   def record(num_of_cig)
@@ -26,19 +27,37 @@ class QuitSmoking
       end
   end
 
-  def calc_saved_money(num_of_cig)
-    cigarret_cost = (@cigarette.get_cigarette_price(@user.cigarette_id) / 20).round
-    ave_cost = @user.ave_cig_cons * cigarret_cost
-    todays_cost = num_of_cig * cigarret_cost
-    saved_money = ave_cost - todays_cost
-  end
-
   def get_total_today
-    @db.execute("select smoking_record from smoking_logs where user_id=? and recorded_at=?",[@user.id, Date.today.to_s])[0]['smoking_record']
+    logs = @db.execute("select smoking_record from smoking_logs where user_id=? and recorded_at=?",[@user.id, Date.today.to_s])[0]['smoking_record']
+    logs.each do |log|
+      puts "#{log['recorded_at']} : #{log['smoking_record']}"
+    end
   end
 
   def get_logs
-    @db.execute("select smoking_record, recorded_at from smoking_logs where user_id=?",[@user.id])
+     @db.execute("select smoking_record, recorded_at from smoking_logs where user_id=?",[@user.id])
+  end
+
+  def get_total
+    logs = get_logs
+    total = 0
+    @days = 0
+    logs.each do |log|
+      total += log['smoking_record']
+      @days += 1
+    end
+    total
+  end
+
+  def get_average
+    total = get_total
+    total != 0 ? (total / @days).round : "You haven't kept record yet"
+  end
+
+  def calc_total_payments
+    cigarette_cost = (@cigarette.get_cigarette_price(@user.cigarette_id) / 20)
+    total = get_total
+    total * cigarette_cost
   end
 
   def first_record_today?
@@ -56,7 +75,7 @@ class QuitSmoking
 end
 
 quit_smoking = QuitSmoking.new
-puts "Welcmoe to quit smoking app!"
+puts "Welcmoe to Smoking-log! Let's decrease the number of cigarrets you smoke by recording smoking!"
   loop do
     if !quit_smoking.logged_in
       puts "Please select number"
@@ -80,7 +99,7 @@ puts "Welcmoe to quit smoking app!"
         if cigarette == 0
           puts "Input the name of the cigarette you smoke"
           cig = gets.chomp
-          puts "Input the price of the cigarret"
+          puts "Input the price of the cigarettte"
           price = gets.chomp.to_i
           cigarette = quit_smoking.cigarette.add_cigarette(cig, price)
         end
@@ -109,9 +128,9 @@ puts "Welcmoe to quit smoking app!"
       next
     end
       puts "select number, or type 'exit'"
-      puts "1: Record your smoking"
-      puts "2: Display your daily logs so far"
-      puts "3: Show total"
+      puts "1: Record smoking"
+      puts "2: Display daily logs so far"
+      puts "3: Calculate total money you spent for cigarettes since you started 'Smoking-log'"
       puts "4: Delete account"
     input = gets.chomp
     exit if input == 'exit'
@@ -121,20 +140,15 @@ puts "Welcmoe to quit smoking app!"
     puts "Enter the number of cigarettes you smoked"
     num_of_cigs = gets.chomp.to_i
     quit_smoking.record(num_of_cigs)
-    puts "You smoked #{quit_smoking.get_total_today} cigarrets in total today"
-    saved_money = quit_smoking.calc_saved_money(quit_smoking.get_total_today)
-    if saved_money > 0
-      puts "You've saved $#{saved_money} today"
-    else
-      puts "You've paid $#{saved_money.abs} more than usual"
-    end
+    puts "You smoked #{quit_smoking.get_total_today} cigarettes in total today"
   when 2
     logs = quit_smoking.get_logs
     logs.each do |log|
       puts "#{log['recorded_at']} : #{log['smoking_record']}"
     end
+    puts "You smoke #{quit_smoking.get_average} cigarettes on average"
   when 3
-    quit_smoking.ranking
+    puts "You have spent #{quit_smoking.calc_total_payments} dollers for sigarettes in total"
   when 4
     puts "Are you sure? yes/no"
     ans = gets.chomp
