@@ -9,7 +9,33 @@ db.results_as_hash = true
 # add a query parameter
 # GET /
 get '/' do
-  "#{params[:name]} is #{params[:age]} years old."
+  name = "%#{params[:name]}%"
+    student = db.execute("SELECT * FROM students where name like ?",[name])
+    response = ""
+    if student.length < 5
+      student.each do |student|
+        response << "ID: #{student['id']}<br>"
+        response << "Name: #{student['name']}<br>"
+        response << "Age: #{student['age']}<br>"
+        response << "Campus: #{student['campus']}<br><br>"
+      end
+    end
+    response
+end
+
+get '/contact' do
+  "<a href='mailto:example@test.com'>example@test.com</a>"
+end
+
+get '/great_job' do
+  name = params[:name]
+  name ? "Good job, #{name}" : "Good job"
+end
+
+get '/:num1/plus/:num2' do
+  num1 = params[:num1]
+  num2 = params[:num2]
+  "#{num1} + #{num2} = #{num1 + num2}"
 end
 
 # write a GET route with
