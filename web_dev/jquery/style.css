@@ -19,6 +19,11 @@ h2 {
   padding: 15px 20px;
 }
 
+h2:hover {
+  cursor: pointer;
+  background: #f8f8f8;
+}
+
 #menu-bar {
   vertical-align: top;
   display: inline-block;
@@ -34,17 +39,36 @@ h2 {
 .menu-item a{
   color: #333;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
 }
 
 .active {
   background-color: #f8f8f8;
+  display: block;
 }
 
 .sub-menu {
+  position: absolute;
   display: none;
+  background: white;
+  border-radius: 3px;
+  padding: 10px;
+}
+
+.sub-menu li {
+  list-style-type: none;
+  margin: 10px 20px 0 5px;
   font-size: 14px;
+}
+
+.sub-menu li:hover a{
+  color: #777;
+}
+
+.sub-menu a {
+  font-size: 18px;
+  font-weight: normal;
 }
 
 .content {
