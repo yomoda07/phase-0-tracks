@@ -2,3 +2,51 @@ main {
   max-width: 900px;
   margin: 0 auto;
 }
+
+header{
+  position: relative;
+  background: #f8f8f8;
+}
+
+h1 {
+  vertical-align: top;
+  display: inline-block;
+  margin-left: 15px;
+}
+
+h2 {
+  border: solid 2px #ddd;
+  padding: 15px 20px;
+}
+
+#menu-bar {
+  vertical-align: top;
+  display: inline-block;
+  width: 400px;
+  margin: 0 0 0 10px;
+}
+
+.menu-item {
+  padding: 30px 18px;
+  display: inline-block;
+}
+
+.menu-item a{
+  color: #333;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.active {
+  background-color: #f8f8f8;
+}
+
+.sub-menu {
+  display: none;
+  font-size: 14px;
+}
+
+.content {
+  display: none;
+}
